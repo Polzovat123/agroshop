@@ -29,8 +29,8 @@ class Farmer(db.Model):
 
 class ShoppingCart(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.String(80), unique=True, nullable=False)
-    product_id = db.Column(db.String(80), nullable=False)
+    user_id = db.Column(db.Integer, unique=True, nullable=False)
+    product_id = db.Column(db.Integer, nullable=False)
     order_date = db.Column(db.DateTime, nullable=False)
 
     def __repr__(self):

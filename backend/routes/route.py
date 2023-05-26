@@ -52,7 +52,7 @@ def home():
             old_price=0
         )
 
-    db.session.add(product)
+        db.session.add(product)
     db.session.commit()
     return jsonify({"ok": "successful validate"}), 200
 
@@ -150,7 +150,7 @@ def get_products():
 
     total_pages = len(products) % 10
     if current_page > total_pages:
-        return jsonify({"error": "Page not found"}), 404
+        return jsonify({"error": "По данному запросу ничего не найдено"}), 404
 
     products = products[(current_page - 1) * items_on_page_count:current_page * items_on_page_count]
     result = []
@@ -213,25 +213,21 @@ def create_product():
     return jsonify({'ok': 'created successfully'}), 200
 
 
-# @app.route('/get_cart', methods=['POST'])
-# def get_cart():
-#     data = request.json
-#     print(ShoppingCart)
-#     form = ChartForm()
-#     if form.validate_on_submit():
-#         pass
-#     shopping_cart = ShoppingCart.query.first()
-#     print(shopping_cart)
-#     print('-')
-#     if shopping_cart:
-#         result = []
-#         for chartElement in shopping_cart:
-#             result.append({
-#                 'product_id': chartElement.product_id,
-#             })
-#         return jsonify({'success': 1, 'data': {'user_id': data['user_id'], 'products': result}}), 200
-#     else:
-#         return jsonify({'Not', 'product not found'}), 404
+@app.route('/get_cart', methods=['POST'])
+@jwt_required()
+def get_cart():
+    user_id = get_jwt_identity()
+    print(user_id)
+    shopping_cart = ShoppingCart.query.filter(user_id=user_id).first()
+    if shopping_cart:
+        result = []
+        for chartElement in shopping_cart:
+            result.append({
+                'product_id': chartElement.product_id,
+            })
+        return jsonify({'success': 1, 'data': {'user_id': user_id, 'products': result}}), 200
+    else:
+        return jsonify({'Not', 'product not found'}), 404
 
 
 @app.route('/delete_product', methods=['GET'])
@@ -259,7 +255,6 @@ def update_product():
         return jsonify({'ok', 'updated complete'}), 201
     else:
         return jsonify({'Not', 'product not found'}), 404
-
 
 # @app.route('/add_into_cart', methods=['POST'])
 # def add_into_cart():
