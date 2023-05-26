@@ -144,24 +144,38 @@ def get_product_by_id(product_id: int):
 
 @app.route('/create_product', methods=['POST'])
 def create_product():
-    data = request.json()
-    form = ProductForm()
-    if form.validate_on_submit():
-        product = Product(
-            product_name=data['product_name'],
-            description=data['description'],
-            image=data['image']
-        )
-        product.save()
-        return jsonify({'ok', 'created successfully'}), 201
-    return jsonify({"error": "Unsuccessful validate"}), 400
+    data = request.get_json()
+    product_name = data.get('product_name')
+    description = data.get('description')
+    image = data.get('image')
+
+    if not validate_input(product_name) or not validate_input(description):
+        return jsonify({"error": "Unsuccessful validate"}), 400
+
+    product = Product(
+        product_name=product_name,
+        description=description,
+        type_id=0,
+        tags_id=0,
+        date_of_publication=datetime.now(),
+        date_update=datetime.now(),
+        image=image,
+        price=0,
+        old_price=0
+    )
+
+    db.session.add(product)
+    db.session.commit()
+    return jsonify({'ok': 'created successfully'}), 200
 
 
 @app.route('/delete_product', methods=['GET'])
 def delete_product():
     data = request.json()
     product = Product.get(Product.id == data["id"])
-    product.delete_instance()
+
+    db.session.delete(product)
+    db.session.commit()
 
     return jsonify({'ok', 'deleted complete'}), 201
 
