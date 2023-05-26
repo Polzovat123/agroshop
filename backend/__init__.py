@@ -25,11 +25,8 @@ login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 login_manager.init_app(app)
 
-from routes.route import *
-from forms import *
+from backend.routes.route import *
+from backend.forms import *
 
 with app.app_context():
     db.create_all()
-
-from routes.route import *
-from forms import *
