@@ -37,23 +37,7 @@ def create_products():
 @app.route("/")
 @app.route("/home")
 def home():
-    print('!')
     db.create_all()
-    for i in range(50):
-        product = Product(
-            product_name="product_name",
-            description="description",
-            type_id=0,
-            tags_id=0,
-            date_of_publication=datetime.now(),
-            date_update=datetime.now(),
-            image="image",
-            price=0,
-            old_price=0
-        )
-
-    db.session.add(product)
-    db.session.commit()
     return jsonify({"ok": "successful validate"}), 200
 
 
