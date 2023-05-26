@@ -120,7 +120,7 @@ def can_add_user(username):
 
 @app.route('/products', methods=['GET'])
 def get_products():
-    items_on_page_count = 10
+    items_on_page_count = 9
     price = request.args.get('price', type=str)
     current_page = request.args.get('page', default=1, type=int)
 
@@ -132,7 +132,7 @@ def get_products():
         order = Product.id.asc()
     products = Product.query.order_by(order).all()
 
-    total_pages = len(products) // 10
+    total_pages = len(products) // 9
 
     if current_page > total_pages:
         return jsonify({"error": "Page not found"}), 404
@@ -143,6 +143,7 @@ def get_products():
         result.append({
             'id': product.id,
             'price': product.price,
+            'old_price': product.old_price,
             'product_name': product.product_name,
             'description': product.description,
             'image': product.image,
