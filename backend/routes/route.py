@@ -77,6 +77,9 @@ def get_products():
     for product in products:
         result.append({
             'id': product.id,
+            'product_name': product.product_name,
+            'description': product.description,
+            'image': product.image,
         })
     return jsonify({
         "success": 1,
@@ -88,13 +91,30 @@ def get_products():
 @app.route('/product/<int:id>', methods=['GET'])
 def get_product_by_id(product_id: int):
     product = Product.get(Product.id == product_id)
-
     if product:
         result = {
-            'id': product.id
+            'id': product.id,
+            'product_name': product.product_name,
+            'description': product.description,
+            'image': product.image,
         }
         return jsonify({
             "success": 1,
             "data": result
         }, 200)
+    return jsonify({"error": "Unsuccessful validate"}), 400
+
+
+@app.route('/create_product', methods=['POST'])
+def create_product():
+    data = request.json()
+    form = ProductForm()
+    if form.validate_on_submit():
+        product = Product(
+            product_name=data['product_name'],
+            description=data['description'],
+            image=data['image']
+        )
+        product.save()
+        return jsonify({'ok', 'created successfully'}), 201
     return jsonify({"error": "Unsuccessful validate"}), 400
