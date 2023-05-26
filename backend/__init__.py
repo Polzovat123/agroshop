@@ -6,7 +6,7 @@ from flask_login import LoginManager
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', '5791628bb0b13ce0c676dfde280ba245')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('FLASK_DB_URL', 'postgresql://postgres:123@localhost/agroshop')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('FLASK_DB_URL', 'sqlite:///../database/sqlite.db')
 app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
 
 db = SQLAlchemy(app)
