@@ -9,7 +9,7 @@ class Users(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     created_at = db.Column(db.DateTime(), nullable=False)
     updated_at = db.Column(db.DateTime(), nullable=False)
-    age = db.Column(db.Integer(), nullable=False)
+    age = db.Column(db.Integer(), nullable=True)
     shop_rating = db.Column(db.Integer(), nullable=False)
     is_farmer = db.Column(db.Integer(), nullable=False)
 
