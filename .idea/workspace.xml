@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a47b9058-399a-4e02-9dc4-754088c29ec0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/forms/product.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/forms/create_product.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/forms/create_product.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/forms/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/forms/login.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/forms/registration.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/forms/registration.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/route.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/route.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug/debug.py" beforeDir="false" afterPath="$PROJECT_DIR$/debug/debug.py" afterDir="false" />
-    </list>
+    <list default="true" id="5b6faa2e-4aa3-4d27-ad3f-ca8d361a4cd1" name="Changes" comment="- base working pipeline" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,35 +15,33 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <favorite-branches>
-      <branch-storage>
-        <map>
-          <entry type="REMOTE">
-            <value>
-              <list>
-                <branch-info repo="$PROJECT_DIR$" source="origin/dev_backend" />
-              </list>
-            </value>
-          </entry>
-        </map>
-      </branch-storage>
-    </favorite-branches>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="dev_backend" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="vlb9xhc8" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2QK00Rb6ob5Qm0UH0vJXmatPnVr" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../WebDianary" />
+    <property name="settings.editor.selected.configurable" value="http.certificates" />
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.debug">
     <configuration name="debug" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="agroshop" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -113,6 +101,21 @@
       <option name="presentableId" value="Default" />
       <updated>1685086741243</updated>
     </task>
+    <task id="LOCAL-00001" summary="- base working pipeline">
+      <created>1685099115006</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1685099115006</updated>
+    </task>
+    <task id="LOCAL-00002" summary="- base working pipeline">
+      <created>1685100074139</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1685100074139</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -125,6 +128,9 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="- base working pipeline" />
+    <option name="LAST_COMMIT_MESSAGE" value="- base working pipeline" />
   </component>
 </project>

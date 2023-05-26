@@ -1,5 +1,6 @@
 import os
 from flask import Flask
+from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
@@ -11,6 +12,7 @@ app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
 
 db = SQLAlchemy(app)
 db.app = app
+jwt = JWTManager(app)
 
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
@@ -20,8 +22,6 @@ login_manager.init_app(app)
 
 with app.app_context():
     db.create_all()
-
-app.app_context().push()
 
 from routes.route import *
 from forms import *

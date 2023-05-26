@@ -10,9 +10,6 @@ CREATE TABLE IF NOT EXISTS public.users
     email character varying(80) COLLATE pg_catalog."default" NOT NULL,
     created_at time with time zone NOT NULL,
     updated_at time with time zone NOT NULL,
-    age integer NOT NULL,
-    shop_rating integer NOT NULL DEFAULT 50,
-    is_farmer integer NOT NULL DEFAULT 0,
     CONSTRAINT client_pkey PRIMARY KEY (id)
 )
 
