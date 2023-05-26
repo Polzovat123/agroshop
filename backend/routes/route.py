@@ -149,3 +149,28 @@ def create_product():
         product.save()
         return jsonify({'ok', 'created successfully'}), 201
     return jsonify({"error": "Unsuccessful validate"}), 400
+
+
+@app.route('/delete_product', methods=['GET'])
+def delete_product():
+    data = request.json()
+    product = Product.get(Product.id == data["id"])
+    product.delete_instance()
+
+    return jsonify({'ok', 'deleted complete'}), 201
+
+
+@app.route('/update_product', methods=['POST'])
+def update_product():
+    data = request.json()
+    product = Product.query.filter_by(id=data["id"]).first()
+    if product:
+        product.product_name = data["product_name"]
+        product.description = data["description"]
+        product.image = data["image"]
+        product.price = data["price"]
+        product.old_price = data["old_price"]
+        db.session.commit()
+        return jsonify({'ok', 'updated complete'}), 201
+    else:
+        return jsonify({'Not', 'product not found'}), 404

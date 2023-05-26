@@ -48,6 +48,8 @@ class Product(db.Model):
     date_of_publication = db.Column(db.DateTime, nullable=False)
     date_update = db.Column(db.DateTime, nullable=False)  # TODO TIMESTAMP
     image = db.Column(db.String(), nullable=False)
+    price = db.Column(db.Integer(), nullable=False)
+    old_price = db.Column(db.Integer(), nullable=False)
 
     def __repr__(self):
         return '<product_name %r>' % self.product_name
