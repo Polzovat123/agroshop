@@ -132,7 +132,8 @@ def get_products():
         order = Product.id.asc()
     products = Product.query.order_by(order).all()
 
-    total_pages = len(products) % 10
+    total_pages = len(products) // 10
+
     if current_page > total_pages:
         return jsonify({"error": "Page not found"}), 404
 
