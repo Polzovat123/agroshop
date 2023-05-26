@@ -13,7 +13,7 @@ from backend.models.models import User
 @jwt_required()
 def protected():
     current_user = get_jwt_identity()
-    return jsonify
+    return jsonify(logged_in_as=current_user), 200
 
 
 @app.route('/login', methods=['POST'])

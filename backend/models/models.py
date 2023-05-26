@@ -1,4 +1,4 @@
-from app import db
+from backend import db
 from sqlalchemy.dialects.postgresql import JSON
 
 
