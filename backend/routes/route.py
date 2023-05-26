@@ -7,7 +7,7 @@ from backend import app, db, bcrypt
 from backend.forms.login import LoginForm
 from backend.forms.registration import RegistrationForm
 from backend.forms.product import ProductForm
-from backend.models.models import Client, Product
+from backend.models.models import Users, Product
 
 
 @app.route("/")
@@ -32,7 +32,7 @@ def auth_login():
     #     return jsonify({"error": "Invalid email or password"}), 200
     form = LoginForm()
     if form.validate_on_submit():
-        user = Client.query.filter_by(email=form.email.data).first()
+        user = Users.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             access_token = create_access_token(identity=email)
             return jsonify(access_token=access_token), 200
@@ -47,7 +47,7 @@ def register():
     print('asd')
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = Client(username=form.username.data, email=form.email.data, password=hashed_password)
+        user = Users(username=form.username.data, email=form.email.data, password=hashed_password)
         print('creat')
         # db.session.add(user)
         # db.session.commit()
@@ -56,13 +56,22 @@ def register():
     return jsonify({"error": "Unsuccessful validate"}), 400
 
 
-@app.route('/get_products', methods=['GET'])
-def register():
-    products = Product.query.all()
+@app.route('/products', methods=['GET'])
+def get_products():
+    items_on_page_count = 10
+    price = request.args.get('price', default='asc', type=str)
+    offset = request.args.get('page', default=1, type=int) - 1
+
+    if price == 'asc':
+        order = Product.price.asc()
+    else:
+        order = Product.price.desc()
+
+    products = Product.query.order_by(order).offset(offset * items_on_page_count).limit(items_on_page_count).all()
     result = []
     for product in products:
         result.append({
-            'id': product.id
+            'id': product.id,
         })
     return jsonify({
         "success": 1,
@@ -71,12 +80,11 @@ def register():
     # return jsonify({"error": "Unsuccessful validate"}), 400
 
 
-@app.route('/get_product', methods=['GET'])
-def register():
-    form = ProductForm()
-    if form.validate_on_submit():
-        product = Product.get(Product.id == form.product_id.data)
+@app.route('/product/<int:id>', methods=['GET'])
+def get_product_by_id(product_id: int):
+    product = Product.get(Product.id == product_id)
 
+    if product:
         return jsonify({
             "success": 1,
             "data": product
