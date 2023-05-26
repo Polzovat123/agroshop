@@ -1,4 +1,6 @@
 import os
+import random
+
 from flask import Flask
 from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
@@ -23,7 +25,25 @@ login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 login_manager.init_app(app)
 
+from routes.route import *
+from forms import *
+
 with app.app_context():
+    for i in range(50):
+        price = random.randint(1, 100) / 100
+        product = Product(
+            product_name='продукт №' + str(i),
+            description='это продукт №' + str(i),
+            type_id=0,
+            tags_id=0,
+            date_of_publication=datetime.now(),
+            date_update=datetime.now(),
+            image= f"asdfasd{i}",
+            price=price,
+            old_price=int(price * 1.3) if random.randint(0, 1) > 0 else price
+        )
+        db.session.add(product)
+        db.session.commit()
     db.create_all()
 
 from routes.route import *

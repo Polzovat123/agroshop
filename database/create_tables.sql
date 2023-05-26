@@ -1,8 +1,8 @@
--- Table: public.client
+-- Table: public.users
 
--- DROP TABLE IF EXISTS public.client;
+-- DROP TABLE IF EXISTS public.users;
 
-CREATE TABLE IF NOT EXISTS public.client
+CREATE TABLE IF NOT EXISTS public.users
 (
     id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
     username character varying(80) COLLATE pg_catalog."default" NOT NULL,
@@ -10,14 +10,12 @@ CREATE TABLE IF NOT EXISTS public.client
     email character varying(80) COLLATE pg_catalog."default" NOT NULL,
     created_at time with time zone NOT NULL,
     updated_at time with time zone NOT NULL,
-    age integer NOT NULL,
-    shop_rating integer NOT NULL DEFAULT 50,
     CONSTRAINT client_pkey PRIMARY KEY (id)
 )
 
 TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.client
+ALTER TABLE IF EXISTS public.users
     OWNER to postgres;
 
 -- Table: public.farmer
@@ -27,32 +25,20 @@ ALTER TABLE IF EXISTS public.client
 CREATE TABLE IF NOT EXISTS public.farmer
 (
     id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
-    farmername character varying(80) COLLATE pg_catalog."default" NOT NULL,
-    password character varying(80) COLLATE pg_catalog."default" NOT NULL,
-    email character varying(80) COLLATE pg_catalog."default" NOT NULL,
     created_at character varying(80) COLLATE pg_catalog."default" NOT NULL,
     updated_at character varying(80) COLLATE pg_catalog."default" NOT NULL,
     farmer_rating character varying(80) COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT farmer_pkey PRIMARY KEY (id)
+    user_id bigint NOT NULL,
+    nickname bit varying(80) NOT NULL,
+    CONSTRAINT farmer_pkey PRIMARY KEY (id),
+    CONSTRAINT user_id_key FOREIGN KEY (user_id)
+        REFERENCES public.users (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
 )
 
 TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.farmer
-    OWNER to postgres;
-
--- Table: public.role
-
--- DROP TABLE IF EXISTS public.role;
-
-CREATE TABLE IF NOT EXISTS public.role
-(
-    id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
-    rolename character varying(80) COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT role_pkey PRIMARY KEY (id)
-)
-
-TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.role
     OWNER to postgres;
