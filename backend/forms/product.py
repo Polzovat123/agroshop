@@ -5,9 +5,6 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextA
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from backend.models.models import Client
 
-class LoginForm(FlaskForm):
-    email = StringField('Email',
-                        validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    remember = BooleanField('Remember Me')
-    submit = SubmitField('Login')
+
+class ProductForm(FlaskForm):
+    product_id = StringField('Product id', validators=[DataRequired()])

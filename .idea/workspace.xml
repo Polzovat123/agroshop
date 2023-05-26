@@ -2,12 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a47b9058-399a-4e02-9dc4-754088c29ec0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/forms/product.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/forms/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/forms/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/forms/create_product.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/forms/create_product.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/forms/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/forms/login.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/forms/registration.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/forms/registration.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/models/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/routes/route.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/route.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug/debug.py" beforeDir="false" afterPath="$PROJECT_DIR$/debug/debug.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +36,11 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="RunManager" selected="Python.debug">
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+  </component>
+  <component name="RunManager" selected="Python.main">
     <configuration name="debug" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="agroshop" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -78,8 +85,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.debug" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.debug" />
       </list>
     </recent_temporary>
   </component>
@@ -105,16 +112,5 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/debug/debug.py</url>
-          <line>4</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
