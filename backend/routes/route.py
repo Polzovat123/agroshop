@@ -9,12 +9,14 @@ from backend import app, db, bcrypt, jwt
 from backend.forms.login import LoginForm
 from backend.forms.registration import RegistrationForm
 from backend.forms.product import ProductForm
-from backend.models.models import Users, Product
+from backend.forms.chart import ChartForm
+from backend.models.models import Users, Product, ShoppingCart
 
 
 @app.route("/")
 @app.route("/home")
 def home():
+    print('!')
     db.create_all()
     return jsonify({"ok": "successful validate"}), 200
 
@@ -38,8 +40,8 @@ def auth_login():
 
     user = Users.query.filter_by(email=email).first()
     if user and bcrypt.check_password_hash(user.password, password):
-            access_token = create_access_token(identity=email)
-            return jsonify(access_token=access_token), 200
+        access_token = create_access_token(identity=email)
+        return jsonify(access_token=access_token), 200
 
 
 @app.route('/register', methods=['POST'])
@@ -59,15 +61,15 @@ def register():
 
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
     user = Users(
-                username=username,
-                email=email,
-                password=hashed_password,
-                created_at=datetime.now(),
-                updated_at=datetime.now(),
-                age=age,
-                shop_rating=50,
-                is_farmer=is_farmer
-                )
+        username=username,
+        email=email,
+        password=hashed_password,
+        created_at=datetime.now(),
+        updated_at=datetime.now(),
+        age=age,
+        shop_rating=50,
+        is_farmer=is_farmer
+    )
     db.session.add(user)
     db.session.commit()
     flash('Your account has been created! You are now able to log in', 'success')
@@ -169,6 +171,27 @@ def create_product():
     return jsonify({'ok': 'created successfully'}), 200
 
 
+# @app.route('/get_cart', methods=['POST'])
+# def get_cart():
+#     data = request.json
+#     print(ShoppingCart)
+#     form = ChartForm()
+#     if form.validate_on_submit():
+#         pass
+#     shopping_cart = ShoppingCart.query.first()
+#     print(shopping_cart)
+#     print('-')
+#     if shopping_cart:
+#         result = []
+#         for chartElement in shopping_cart:
+#             result.append({
+#                 'product_id': chartElement.product_id,
+#             })
+#         return jsonify({'success': 1, 'data': {'user_id': data['user_id'], 'products': result}}), 200
+#     else:
+#         return jsonify({'Not', 'product not found'}), 404
+
+
 @app.route('/delete_product', methods=['GET'])
 def delete_product():
     data = request.json()
@@ -182,7 +205,7 @@ def delete_product():
 
 @app.route('/update_product', methods=['POST'])
 def update_product():
-    data = request.json()
+    data = request.json
     product = Product.query.filter_by(id=data["id"]).first()
     if product:
         product.product_name = data["product_name"]
@@ -194,3 +217,22 @@ def update_product():
         return jsonify({'ok', 'updated complete'}), 201
     else:
         return jsonify({'Not', 'product not found'}), 404
+
+
+# @app.route('/add_into_cart', methods=['POST'])
+# def add_into_cart():
+#     data = request.json
+#     # Проверка на то, сли 2 элемента одинаковы
+#     cart_element = ShoppingCart
+#     print(cart_element)
+#     if cart_element:
+#         return jsonify({"error": "Not unique value"}), 400
+#
+#     cart_element = ShoppingCart(
+#         user_id=data['user_id'],
+#         product_id=data['product_id'],
+#         order_date=datetime.now(),
+#     )
+#     db.session.add(cart_element)
+#     db.session.commit()
+#     return jsonify({'success': 1}), 200

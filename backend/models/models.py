@@ -1,4 +1,3 @@
-from sqlalchemy.dialects.postgresql import JSON
 from backend import db
 
 
@@ -30,10 +29,9 @@ class Farmer(db.Model):
 
 class ShoppingCart(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    nickname = db.Column(db.String(80), unique=True, nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False)
-    updated_at = db.Column(db.DateTime, nullable=False)  # TODO TIMESTAMP
-    farmer_rating = db.Column(db.Integer(), nullable=False)
+    user_id = db.Column(db.String(80), unique=True, nullable=False)
+    product_id = db.Column(db.String(80), nullable=False)
+    order_date = db.Column(db.DateTime, nullable=False)
 
     def __repr__(self):
         return '<nickname %r>' % self.nickname
@@ -87,7 +85,3 @@ class ProductType(db.Model):
 
     def __repr__(self):
         return '<id %r>' % self.id
-
-
-
-
