@@ -21,7 +21,6 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.users
     OWNER to postgres;
 
-
 -- Table: public.farmer
 
 -- DROP TABLE IF EXISTS public.farmer;
