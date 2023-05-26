@@ -9,6 +9,12 @@ from backend.forms.registration import RegistrationForm
 from backend.models.models import User
 
 
+@app.route("/")
+@app.route("/home")
+def home():
+    return jsonify({"ok": "successful validate"}), 200
+
+
 @app.route('/protected')
 @jwt_required()
 def protected():

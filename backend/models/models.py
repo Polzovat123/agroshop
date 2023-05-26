@@ -29,7 +29,7 @@ class Farmer(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)  # TODO TIMESTAMP
-    farmer_rating = db.Column(db.Integer(120), nullable=False)
+    farmer_rating = db.Column(db.Integer(), nullable=False)
 
     def __repr__(self):
         return '<Farmer %r>' % self.farmer_name
