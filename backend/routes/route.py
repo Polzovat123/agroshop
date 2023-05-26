@@ -36,7 +36,7 @@ def auth_login():
     if not validate_input(username) or not validate_input(password):
         return jsonify({"error": "Unsuccessful validate"}), 400
 
-    user = User.query.filter_by(email=email).first()
+    user = Users.query.filter_by(email=email).first()
     if user and bcrypt.check_password_hash(user.password, password):
             access_token = create_access_token(identity=email)
             return jsonify(access_token=access_token), 200
@@ -55,7 +55,7 @@ def register():
         return jsonify({"error": "Not unique value"}), 400
 
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-    user = User(
+    user = Users(
                 username=username,
                 email=email,
                 password=hashed_password,
@@ -81,7 +81,7 @@ def can_add_user(username):
     """
     Checks if the username is available for adding a new user.
     """
-    existing_user = User.query.filter_by(username=username).first()
+    existing_user = Users.query.filter_by(username=username).first()
     if existing_user:
         return False
     return True

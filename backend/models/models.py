@@ -33,7 +33,7 @@ class ShoppingCart(db.Model):
     nickname = db.Column(db.String(80), unique=True, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)  # TODO TIMESTAMP
-    farmer_rating = db.Column(db.Integer(120), nullable=False)
+    farmer_rating = db.Column(db.Integer(), nullable=False)
 
     def __repr__(self):
         return '<nickname %r>' % self.nickname
