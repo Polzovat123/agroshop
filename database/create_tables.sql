@@ -10,8 +10,6 @@ CREATE TABLE IF NOT EXISTS public.client
     email character varying(80) COLLATE pg_catalog."default" NOT NULL,
     created_at time with time zone NOT NULL,
     updated_at time with time zone NOT NULL,
-    age integer NOT NULL,
-    shop_rating integer NOT NULL DEFAULT 50,
     CONSTRAINT client_pkey PRIMARY KEY (id)
 )
 
@@ -19,6 +17,7 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.client
     OWNER to postgres;
+
 
 -- Table: public.farmer
 
