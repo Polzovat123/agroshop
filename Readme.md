@@ -6,7 +6,7 @@
     - flask
     - sqlite 
   
-- frontend (repo: https://github.com/Ayra47/hackaton)
+- frontend (repo: https://github.com/Ayra47/hackaton) - private repo
     - next.js
 
 реализован телеграм бот для новостной рассылки зарегистрированным пользователям
