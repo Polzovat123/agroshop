@@ -48,6 +48,9 @@ def register():
     username = data.get('username')
     email = data.get('email')
     password = data.get('password')
+    age = data.get('age')
+    is_farmer = data.get('is_farmer')
+
     if not validate_input(username) or not validate_input(password):
         return jsonify({"error": "Unsuccessful validate"}), 400
 
@@ -60,7 +63,10 @@ def register():
                 email=email,
                 password=hashed_password,
                 created_at=datetime.now(),
-                updated_at=datetime.now()
+                updated_at=datetime.now(),
+                age=age,
+                shop_rating=50,
+                is_farmer=is_farmer
                 )
     db.session.add(user)
     db.session.commit()
