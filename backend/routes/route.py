@@ -1,3 +1,4 @@
+import random
 from datetime import datetime
 import re
 
@@ -13,11 +14,46 @@ from backend.forms.chart import ChartForm
 from backend.models.models import Users, Product, ShoppingCart
 
 
+@app.route("/create-products")
+def create_products():
+    for i in range(50):
+        product = Product(
+            product_name=f"product_name {i}",
+            description=f"description {i}",
+            type_id=0,
+            tags_id=0,
+            date_of_publication=datetime.now(),
+            date_update=datetime.now(),
+            image="image",
+            price=random.randint(100, 300),
+            old_price=random.randint(400, 700)
+        )
+        db.session.add(product)
+
+    db.session.commit()
+    return jsonify({"ok": "products created"}), 200
+
+
 @app.route("/")
 @app.route("/home")
 def home():
     print('!')
     db.create_all()
+    for i in range(50):
+        product = Product(
+            product_name="product_name",
+            description="description",
+            type_id=0,
+            tags_id=0,
+            date_of_publication=datetime.now(),
+            date_update=datetime.now(),
+            image="image",
+            price=0,
+            old_price=0
+        )
+
+    db.session.add(product)
+    db.session.commit()
     return jsonify({"ok": "successful validate"}), 200
 
 
@@ -101,13 +137,15 @@ def can_add_user(username):
 @app.route('/products', methods=['GET'])
 def get_products():
     items_on_page_count = 10
-    price = request.args.get('price', default='asc', type=str)
+    price = request.args.get('price', type=str)
     current_page = request.args.get('page', default=1, type=int)
 
     if price == 'asc':
         order = Product.price.asc()
-    else:
+    elif price == 'desc':
         order = Product.price.desc()
+    else:
+        order = Product.id.asc()
     products = Product.query.order_by(order).all()
 
     total_pages = len(products) % 10
@@ -119,6 +157,7 @@ def get_products():
     for product in products:
         result.append({
             'id': product.id,
+            'price': product.price,
             'product_name': product.product_name,
             'description': product.description,
             'image': product.image,
