@@ -60,14 +60,19 @@ def register():
 def get_products():
     items_on_page_count = 10
     price = request.args.get('price', default='asc', type=str)
-    offset = request.args.get('page', default=1, type=int) - 1
+    current_page = request.args.get('page', default=1, type=int)
 
     if price == 'asc':
         order = Product.price.asc()
     else:
         order = Product.price.desc()
+    products = Product.query.order_by(order).all()
 
-    products = Product.query.order_by(order).offset(offset * items_on_page_count).limit(items_on_page_count).all()
+    total_pages = len(products) % 10
+    if current_page > total_pages:
+        return jsonify({"error": "Page not found"}), 404
+
+    products = products[(current_page - 1) * items_on_page_count:current_page * items_on_page_count]
     result = []
     for product in products:
         result.append({
@@ -75,9 +80,9 @@ def get_products():
         })
     return jsonify({
         "success": 1,
-        "data": result
+        "data": result,
+        "total_pages": total_pages
     }, 200)
-    # return jsonify({"error": "Unsuccessful validate"}), 400
 
 
 @app.route('/product/<int:id>', methods=['GET'])
@@ -85,8 +90,11 @@ def get_product_by_id(product_id: int):
     product = Product.get(Product.id == product_id)
 
     if product:
+        result = {
+            'id': product.id
+        }
         return jsonify({
             "success": 1,
-            "data": product
+            "data": result
         }, 200)
     return jsonify({"error": "Unsuccessful validate"}), 400
