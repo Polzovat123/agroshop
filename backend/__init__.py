@@ -29,21 +29,6 @@ from routes.route import *
 from forms import *
 
 with app.app_context():
-    for i in range(50):
-        price = random.randint(1, 100) / 100
-        product = Product(
-            product_name='продукт №' + str(i),
-            description='это продукт №' + str(i),
-            type_id=0,
-            tags_id=0,
-            date_of_publication=datetime.now(),
-            date_update=datetime.now(),
-            image= f"asdfasd{i}",
-            price=price,
-            old_price=int(price * 1.3) if random.randint(0, 1) > 0 else price
-        )
-        db.session.add(product)
-        db.session.commit()
     db.create_all()
 
 from routes.route import *

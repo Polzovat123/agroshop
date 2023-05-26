@@ -31,14 +31,14 @@ def protected():
 @app.route('/login', methods=['POST'])
 def auth_login():
     data = request.get_json()
-    username = data.get('username')
+    username = data.get('login')
     email = data.get('email')
     password = data.get('password')
 
     if not validate_input(email) or not validate_input(password):
         return jsonify({"error": "Unsuccessful validate"}), 200
 
-    user = User.query.filter_by(email=email).first()
+    user = Users.query.filter_by(email=email).first()
 
     if user and bcrypt.check_password_hash(user.password, password):
         access_token = create_access_token(identity=user.id)
@@ -57,10 +57,10 @@ def register():
     is_farmer = data.get('is_farmer')
 
     if not validate_input(username) or not validate_input(password):
-        return jsonify({"error": "Unsuccessful validate"}), 400
+        return jsonify({"success": False, "error": "Unsuccessful validate"}), 400
 
     if not can_add_user(username):
-        return jsonify({"error": "Not unique value"}), 400
+        return jsonify({"success": False, "error": "Not unique value"}), 400
 
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
     user = Users(
@@ -69,14 +69,14 @@ def register():
         password=hashed_password,
         created_at=datetime.now(),
         updated_at=datetime.now(),
-        age=age,
+        age=10,
         shop_rating=50,
-        is_farmer=is_farmer
+        is_farmer=1
     )
     db.session.add(user)
     db.session.commit()
     flash('Your account has been created! You are now able to log in', 'success')
-    return jsonify({"ok": "Successful validate"}), 200
+    return jsonify({"success": True}), 200
 
 
 def validate_input(input_str):
