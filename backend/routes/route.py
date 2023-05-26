@@ -18,7 +18,7 @@ def home():
     return jsonify({"ok": "successful validate"}), 200
 
 
-@app.route('/protected')
+@app.route('/protected', methods=['POST'])
 @jwt_required()
 def protected():
     current_user = get_jwt_identity()
@@ -28,23 +28,25 @@ def protected():
 @app.route('/login', methods=['POST'])
 def auth_login():
     data = request.get_json()
-    username = data.get('username')
     email = data.get('email')
     password = data.get('password')
 
-    if not validate_input(username) or not validate_input(password):
-        return jsonify({"error": "Unsuccessful validate"}), 400
+    if not validate_input(email) or not validate_input(password):
+        return jsonify({"error": "Unsuccessful validate"}), 200
 
     user = User.query.filter_by(email=email).first()
+
     if user and bcrypt.check_password_hash(user.password, password):
-            access_token = create_access_token(identity=email)
-            return jsonify(access_token=access_token), 200
+        access_token = create_access_token(identity=user.id)
+        return jsonify({"success": True, "access_token": access_token}), 200
+
+    return jsonify({"success": False, "error": "Неверный email или пароль"}), 200
 
 
 @app.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
-    username = data.get('username')
+    username = data.get('login')
     email = data.get('email')
     password = data.get('password')
     if not validate_input(username) or not validate_input(password):
@@ -71,7 +73,6 @@ def validate_input(input_str):
     """
     Validates user input to prevent SQL injection.
     """
-    print(input_str)
     if re.search(r'[;\'"\\/]', input_str):
         return False
     return True
